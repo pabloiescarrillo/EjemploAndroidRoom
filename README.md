@@ -10,7 +10,7 @@ Proyecto ejemplo de Android Room y SQLite
 implementation("androidx.room:room-runtime:2.5.0")
 annotationProcessor ("androidx.room:room-compiler:2.5.0")
 ```
-3. Crear DatabaseHelper
+2. Crear DatabaseHelper
 ```
 @Database(entities = {Entidad1.class, Entidad2.class, Entidad3.class ... }, version = 1)
 public abstract class DatabaseHelper extends RoomDatabase {
@@ -40,8 +40,8 @@ public abstract class DatabaseHelper extends RoomDatabase {
     ....
 }
 ```
-5. Crear Entidades
-6. Crear DAOs
-7. Añadir Entidades y DAOs al DatabaseHelper
-8. Crear Servicios
-9. Usar los Servicios en las Activityes
+3. Crear Entidades
+4. Crear DAOs
+5. Añadir Entidades y DAOs al DatabaseHelper
+6. Crear Servicios
+7. Usar los Servicios en las Activityes
