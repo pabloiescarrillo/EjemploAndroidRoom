@@ -82,5 +82,41 @@ public interface Entidad1Dao {
 **5. Añadir Entidades y DAOs al DatabaseHelper**
 
 **6. Crear Servicios**
+```
+public class Entidad1Services implements Entidad1Dao {
 
+    // DAO relacionado (solo debe tener uno)
+    private Entidad1Dao entidad1Dao;
+
+    // Servicios relacionados (puede tener de 0 a muchos servicios relacionados)
+    private Entidad2Service entidad2Service;
+    private Entidad3Service entidad3Service;
+    
+    public CarServices(Application application){
+        DatabaseHelper db = DatabaseHelper.getInstance(application);
+        entidad1Dao = db.entidad1Dao();
+        entidad2Service = new Entidad2Service();
+        entidad3Service = new Entidad3Service();
+    }
+    @Override
+    public long insertEntidad1(Entidad1 entidad1) {
+        return carDao.insertEntidad1(entidad1);
+    }
+
+    @Override
+    public void updateEntidad1(Entidad1 entidad1) {
+        carDao.updateEntidad1(entidad1);
+    }
+
+    @Override
+    public void deleteEntidad1(Entidad1 entidad1) {
+        carDao.deleteEntidad1(entidad1);
+    }
+
+    @Override
+    public List<Entidad1> getAll() {
+        return entidad1Dao.getAll();
+    }
+}
+```
 **7. Usar los Servicios en las Activityes**
