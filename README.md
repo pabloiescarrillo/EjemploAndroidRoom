@@ -120,3 +120,61 @@ public class Entidad1Services implements Entidad1Dao {
 }
 ```
 **7. Usar los Servicios en las Activityes**
+```
+public class MainActivity extends AppCompatActivity {
+
+    // Crear las variables de los servicios
+    private Entidad1Services entidad1Services;
+    private Entidad2Services entidad2Services;
+    private Entidad3Services entidad3Services;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        // Inicializamos los servicios
+        entidad1Services = new Entidad1Services(getApplication());
+        entidad2Services = new Entidad2Services(getApplication());
+        entidad3Services = new Entidad3Services(getApplication());
+
+        // En Android tenemos que ejecutar las acciones sobre base de datos en hilos
+        Thread thread = new Thread(() -> {
+            populate();
+
+            for(Entidad1 e1: entidad1Services.getAll()){
+                Log.i("Entidad1", e1.toString());
+            }
+
+            for(Entidad2 e2: entidad2Services.getAll()){
+                Log.i("Entidad2", e1.toString());
+            }
+
+        });
+
+        thread.start();
+        try {
+            thread.join();//Esperar a que termine el hilo
+        } catch (Exception e){
+            Log.e("error hilo", e.getMessage());
+        }
+
+    }
+
+    public void populate(){
+        // Insertar Entidad1
+        Entidad1 e1 = new Entidad1();
+        e1.set...
+        e1.set...
+
+        entidad1Service.insertEntidad1(e1);
+
+        // Insertar Entidad2
+        Entidad2 e2 = new Entidad2();
+        e2.set...
+        e2.set...
+
+        entidad1Services.insertEntidad2(e2);
+    }
+}
+```
