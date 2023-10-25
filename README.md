@@ -41,7 +41,24 @@ public abstract class DatabaseHelper extends RoomDatabase {
 }
 ```
 **3. Crear Entidades**
+```
+@Entity(tableName = "NOMBRE DE LA TABLA EN BBDD")
+public class Car {
 
+    @PrimaryKey(autoGenerate = true)
+    private long id;
+
+    @ColumnInfo(name = "nombre columna en la bbdd")
+    private String atributo1;
+
+    @ColumnInfo(name = "nombre columna en la bbdd")
+    private String atributo2;  
+
+    // Constructor
+
+    // Getters & Setters
+}
+```
 **4. Crear DAOs**
 
 **5. Añadir Entidades y DAOs al DatabaseHelper**
