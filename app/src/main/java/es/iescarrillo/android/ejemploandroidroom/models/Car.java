@@ -2,9 +2,11 @@ package es.iescarrillo.android.ejemploandroidroom.models;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "car")
+@Entity(tableName = "car", foreignKeys = @ForeignKey(entity = Car.class, parentColumns = "id",
+        childColumns = "person_id", onDelete = ForeignKey.CASCADE))
 public class Car {
 
     @PrimaryKey(autoGenerate = true)
@@ -13,6 +15,9 @@ public class Car {
     private String plate;
     @ColumnInfo(name = "model")
     private String model;
+
+    @ColumnInfo(name = "person_id")
+    private long personId;
 
     public Car() {
     }
@@ -39,6 +44,14 @@ public class Car {
 
     public void setModel(String model) {
         this.model = model;
+    }
+
+    public long getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(long personId) {
+        this.personId = personId;
     }
 
     @Override

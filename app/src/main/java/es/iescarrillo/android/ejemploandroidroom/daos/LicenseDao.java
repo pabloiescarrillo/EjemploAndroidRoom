@@ -4,26 +4,25 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
-import androidx.room.Transaction;
 import androidx.room.Update;
 
 import java.util.List;
 
-import es.iescarrillo.android.ejemploandroidroom.models.Car;
+import es.iescarrillo.android.ejemploandroidroom.models.License;
 import es.iescarrillo.android.ejemploandroidroom.models.Person;
 
 @Dao
-public interface CarDao {
+public interface LicenseDao {
 
     @Insert
-    long insertCar(Car car);
+    long insertLicense(License license);
 
     @Update
-    void updateCar(Car car);
+    void updateLicense(License license);
 
     @Delete
-    void deleteCar(Car car);
+    void deleteLicense(License license);
 
-    @Query("SELECT * FROM car")
-    List<Car> getAll();
+    @Query("SELECT * FROM license")
+    List<License> getAll();
 }
