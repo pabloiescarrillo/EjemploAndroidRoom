@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 import java.time.LocalDate;
 import java.util.Date;
 
-@Entity(tableName = "license", foreignKeys = @ForeignKey(entity = License.class, parentColumns = "id", childColumns = "person_id", onDelete = ForeignKey.CASCADE))
+@Entity(tableName = "license", foreignKeys = @ForeignKey(entity = Person.class, parentColumns = "id", childColumns = "person_id", onDelete = ForeignKey.CASCADE))
 public class License {
 
     @PrimaryKey(autoGenerate = true)
