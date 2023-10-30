@@ -11,6 +11,7 @@ import androidx.room.Update;
 import java.util.List;
 import java.util.Map;
 
+import es.iescarrillo.android.ejemploandroidroom.models.Book;
 import es.iescarrillo.android.ejemploandroidroom.models.Car;
 import es.iescarrillo.android.ejemploandroidroom.models.Person;
 import es.iescarrillo.android.ejemploandroidroom.models.PersonWithBooks;
@@ -53,5 +54,8 @@ public interface PersonDao {
     @Transaction
     @Query("SELECT * FROM person")
     List<PersonWithBooks> getPersonWithBooks();
+
+    @Query("SELECT * FROM person p JOIN book b ON p.id = b.person_id")
+    Map<Person, List<Book>> getPersonWithBooksMap();
 
 }

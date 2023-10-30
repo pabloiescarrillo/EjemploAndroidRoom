@@ -9,6 +9,7 @@ import java.util.Map;
 
 import es.iescarrillo.android.ejemploandroidroom.daos.PersonDao;
 import es.iescarrillo.android.ejemploandroidroom.database.DatabaseHelper;
+import es.iescarrillo.android.ejemploandroidroom.models.Book;
 import es.iescarrillo.android.ejemploandroidroom.models.Car;
 import es.iescarrillo.android.ejemploandroidroom.models.Person;
 import es.iescarrillo.android.ejemploandroidroom.models.PersonWithBooks;
@@ -72,6 +73,11 @@ public class PersonService implements PersonDao {
     @Override
     public List<PersonWithBooks> getPersonWithBooks() {
         return personDao.getPersonWithBooks();
+    }
+
+    @Override
+    public Map<Person, List<Book>> getPersonWithBooksMap() {
+        return personDao.getPersonWithBooksMap();
     }
 
 

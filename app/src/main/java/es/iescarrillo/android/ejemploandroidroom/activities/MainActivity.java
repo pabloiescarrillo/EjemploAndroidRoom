@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -69,6 +70,13 @@ public class MainActivity extends AppCompatActivity {
             for(PersonWithBooks p: personService.getPersonWithBooks()){
                 Log.i("Persona con libros", p.toString());
             }
+
+            Map<Person, List<Book>> personListMap = personService.getPersonWithBooksMap();
+            for(Person p:personListMap.keySet()){
+                Log.i("Persona con libros MAP", p.toString() + " Su lista de libros es: " +
+                        personListMap.get(p).toString());
+            }
+
         });
 
         thread.start();
