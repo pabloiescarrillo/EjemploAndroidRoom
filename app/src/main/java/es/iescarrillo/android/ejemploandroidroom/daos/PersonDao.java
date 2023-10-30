@@ -13,6 +13,7 @@ import java.util.Map;
 
 import es.iescarrillo.android.ejemploandroidroom.models.Car;
 import es.iescarrillo.android.ejemploandroidroom.models.Person;
+import es.iescarrillo.android.ejemploandroidroom.models.PersonWithBooks;
 import es.iescarrillo.android.ejemploandroidroom.models.PersonWithCar;
 import es.iescarrillo.android.ejemploandroidroom.models.PersonWithLicense;
 
@@ -47,5 +48,10 @@ public interface PersonDao {
 
     @Query("SELECT * FROM person p JOIN car c ON p.id = c.person_id")
     Map<Person, List<Car>> getPersonWithCarMap();
+
+
+    @Transaction
+    @Query("SELECT * FROM person")
+    List<PersonWithBooks> getPersonWithBooks();
 
 }

@@ -11,14 +11,16 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
+import es.iescarrillo.android.ejemploandroidroom.daos.BookDao;
 import es.iescarrillo.android.ejemploandroidroom.daos.CarDao;
 import es.iescarrillo.android.ejemploandroidroom.daos.LicenseDao;
 import es.iescarrillo.android.ejemploandroidroom.daos.PersonDao;
+import es.iescarrillo.android.ejemploandroidroom.models.Book;
 import es.iescarrillo.android.ejemploandroidroom.models.Car;
 import es.iescarrillo.android.ejemploandroidroom.models.License;
 import es.iescarrillo.android.ejemploandroidroom.models.Person;
 
-@Database(entities = {Person.class, Car.class, License.class}, version = 3)
+@Database(entities = {Person.class, Car.class, License.class, Book.class}, version = 4)
 @TypeConverters({Converters.class})
 public abstract class DatabaseHelper extends RoomDatabase {
 
@@ -26,6 +28,7 @@ public abstract class DatabaseHelper extends RoomDatabase {
     public abstract PersonDao personDao();
     public abstract CarDao carDao();
     public abstract LicenseDao licenseDao();
+    public abstract BookDao bookDao();
 
     // Instancia estática de la clase, para oder usarla en toda la aplicación
     private static DatabaseHelper instance;

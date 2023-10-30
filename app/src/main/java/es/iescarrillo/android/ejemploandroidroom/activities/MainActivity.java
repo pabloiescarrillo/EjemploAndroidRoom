@@ -13,11 +13,14 @@ import java.util.List;
 import java.util.Map;
 
 import es.iescarrillo.android.ejemploandroidroom.R;
+import es.iescarrillo.android.ejemploandroidroom.models.Book;
 import es.iescarrillo.android.ejemploandroidroom.models.Car;
 import es.iescarrillo.android.ejemploandroidroom.models.License;
 import es.iescarrillo.android.ejemploandroidroom.models.Person;
+import es.iescarrillo.android.ejemploandroidroom.models.PersonWithBooks;
 import es.iescarrillo.android.ejemploandroidroom.models.PersonWithCar;
 import es.iescarrillo.android.ejemploandroidroom.models.PersonWithLicense;
+import es.iescarrillo.android.ejemploandroidroom.services.BookService;
 import es.iescarrillo.android.ejemploandroidroom.services.CarService;
 import es.iescarrillo.android.ejemploandroidroom.services.LicenseService;
 import es.iescarrillo.android.ejemploandroidroom.services.PersonService;
@@ -29,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private CarService carServices;
     private LicenseService licenseService;
 
+    private BookService bookService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         personService = new PersonService(getApplication());
         carServices = new CarService(getApplication());
         licenseService = new LicenseService(getApplication());
+        bookService = new BookService(getApplication());
 
         // En Android tenemos que ejecutar las acciones sobre base de datos en hilos
         Thread thread = new Thread(() -> {
@@ -50,13 +56,18 @@ public class MainActivity extends AppCompatActivity {
             for(Car c: carServices.getAll())
                 Log.i("Car", c.toString());*/
 
-            for(PersonWithLicense p: personService.getPersonWithLicense()){
+           /* for(PersonWithLicense p: personService.getPersonWithLicense()){
                 Log.i("Persona con licencia", p.toString());
             }
 
             Map<Person, List<Car>> map = personService.getPersonWithCarMap();
             for(Person p: map.keySet()){
                 Log.i("Persona con coches", p.toString() + " Coche " + map.get(p).toString());
+            }*/
+
+
+            for(PersonWithBooks p: personService.getPersonWithBooks()){
+                Log.i("Persona con libros", p.toString());
             }
         });
 
@@ -105,5 +116,17 @@ public class MainActivity extends AppCompatActivity {
 
         licenseService.insertLicense(l);
 
+        // Insertar libros
+        Book b = new Book();
+        b.setTitle("El Quijote");
+        b.setPersonId(personId);
+
+        bookService.insertBook(b);
+
+        Book b1 = new Book();
+        b1.setTitle("La rueda del tiempo");
+        b1.setPersonId(personId);
+
+        bookService.insertBook(b1);
     }
 }

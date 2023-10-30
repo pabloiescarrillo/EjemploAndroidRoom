@@ -11,6 +11,7 @@ import es.iescarrillo.android.ejemploandroidroom.daos.PersonDao;
 import es.iescarrillo.android.ejemploandroidroom.database.DatabaseHelper;
 import es.iescarrillo.android.ejemploandroidroom.models.Car;
 import es.iescarrillo.android.ejemploandroidroom.models.Person;
+import es.iescarrillo.android.ejemploandroidroom.models.PersonWithBooks;
 import es.iescarrillo.android.ejemploandroidroom.models.PersonWithCar;
 import es.iescarrillo.android.ejemploandroidroom.models.PersonWithLicense;
 
@@ -66,6 +67,11 @@ public class PersonService implements PersonDao {
     @Override
     public Map<Person, List<Car>> getPersonWithCarMap() {
         return personDao.getPersonWithCarMap();
+    }
+
+    @Override
+    public List<PersonWithBooks> getPersonWithBooks() {
+        return personDao.getPersonWithBooks();
     }
 
 
