@@ -6,6 +6,7 @@ import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Entity(tableName = "license", foreignKeys = @ForeignKey(entity = Person.class, parentColumns = "id",
@@ -23,6 +24,9 @@ public class License {
 
     @ColumnInfo(name = "end_date")
     private LocalDate endDate;
+
+    @ColumnInfo(name = "start_time")
+    private LocalTime startTime;
 
     // Foreignkey to Person
     @ColumnInfo(name = "person_id")
@@ -71,6 +75,14 @@ public class License {
         this.personId = personId;
     }
 
+    public LocalTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+    }
+
     @Override
     public String toString() {
         return "License{" +
@@ -78,6 +90,7 @@ public class License {
                 ", name='" + name + '\'' +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
+                ", startTime=" + startTime +
                 ", personId=" + personId +
                 '}';
     }

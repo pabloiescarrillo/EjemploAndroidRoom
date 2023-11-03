@@ -8,6 +8,7 @@ import android.util.Log;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -57,11 +58,11 @@ public class MainActivity extends AppCompatActivity {
             for(Car c: carServices.getAll())
                 Log.i("Car", c.toString());*/
 
-           /* for(PersonWithLicense p: personService.getPersonWithLicense()){
+           for(PersonWithLicense p: personService.getPersonWithLicense()){
                 Log.i("Persona con licencia", p.toString());
             }
 
-            Map<Person, List<Car>> map = personService.getPersonWithCarMap();
+            /* Map<Person, List<Car>> map = personService.getPersonWithCarMap();
             for(Person p: map.keySet()){
                 Log.i("Persona con coches", p.toString() + " Coche " + map.get(p).toString());
             }*/
@@ -121,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
         l.setPersonId(personId);
         l.setStartDate(LocalDate.of(2020, 5, 10));
         l.setEndDate(LocalDate.of(2030, 5, 10));
+        l.setStartTime(LocalTime.of(12,35));
 
         licenseService.insertLicense(l);
 
