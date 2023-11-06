@@ -20,8 +20,8 @@ import es.iescarrillo.android.ejemploandroidroom.models.Car;
 import es.iescarrillo.android.ejemploandroidroom.models.License;
 import es.iescarrillo.android.ejemploandroidroom.models.Person;
 
-@Database(entities = {Person.class, Car.class, License.class, Book.class}, version = 5)
-@TypeConverters({LocalDateConverter.class, LocalTimeConverter.class})
+@Database(entities = {Person.class, Car.class, License.class, Book.class}, version = 2)
+@TypeConverters({LocalDateConverter.class, LocalTimeConverter.class, LocalDateTimeConverter.class})
 public abstract class DatabaseHelper extends RoomDatabase {
 
     // Insertar los DAOs

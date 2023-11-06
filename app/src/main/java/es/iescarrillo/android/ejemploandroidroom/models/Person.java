@@ -1,7 +1,9 @@
 package es.iescarrillo.android.ejemploandroidroom.models;
 
 import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "person")
@@ -13,6 +15,9 @@ public class Person {
     private String name;
     @ColumnInfo(name = "surname")
     private String surname;
+
+    @Embedded
+    private UserAccount userAccount;
 
     @ColumnInfo(name="age")
     private Integer age;
@@ -52,6 +57,13 @@ public class Person {
         this.age = age;
     }
 
+    public UserAccount getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(UserAccount userAccount) {
+        this.userAccount = userAccount;
+    }
 
     @Override
     public String toString() {
