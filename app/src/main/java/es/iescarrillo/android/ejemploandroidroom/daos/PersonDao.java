@@ -58,4 +58,7 @@ public interface PersonDao {
     @Query("SELECT * FROM person p JOIN book b ON p.id = b.person_id")
     Map<Person, List<Book>> getPersonWithBooksMap();
 
+    @Query("SELECT * FROM person WHERE username = :username")
+    Person getPersonByUsername(String username);
+
 }

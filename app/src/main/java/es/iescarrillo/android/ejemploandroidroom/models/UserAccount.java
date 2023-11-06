@@ -12,6 +12,9 @@ public class UserAccount {
     @ColumnInfo(name = "password")
     private String password;
 
+    @ColumnInfo(name = "rol")
+    private String rol;
+
     public UserAccount(){
         super();
     }
@@ -32,11 +35,21 @@ public class UserAccount {
         this.password = password;
     }
 
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
     @Override
     public String toString() {
         return "UserAccount{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", rol='" + rol + '\'' +
                 '}';
     }
 }

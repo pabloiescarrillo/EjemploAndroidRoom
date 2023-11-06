@@ -80,5 +80,10 @@ public class PersonService implements PersonDao {
         return personDao.getPersonWithBooksMap();
     }
 
+    @Override
+    public Person getPersonByUsername(String username) {
+        return personDao.getPersonByUsername(username);
+    }
+
 
 }

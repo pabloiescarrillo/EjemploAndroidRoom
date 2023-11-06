@@ -71,6 +71,7 @@ public class Person {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
+                ", userAccount=" + userAccount.toString() +
                 ", age=" + age +
                 '}';
     }

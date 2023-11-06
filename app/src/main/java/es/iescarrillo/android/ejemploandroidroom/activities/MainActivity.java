@@ -2,8 +2,17 @@ package es.iescarrillo.android.ejemploandroidroom.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,6 +45,12 @@ public class MainActivity extends AppCompatActivity {
 
     private BookService bookService;
 
+    EditText etUsername, etPassword;
+    TextView tvError;
+    Button btnLogin;
+
+    SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,28 +62,33 @@ public class MainActivity extends AppCompatActivity {
         licenseService = new LicenseService(getApplication());
         bookService = new BookService(getApplication());
 
+        etUsername = findViewById(R.id.etUsernameLogin);
+        etPassword = findViewById(R.id.etPassword);
+        tvError = findViewById(R.id.tvError);
+        btnLogin = findViewById(R.id.btnLogin);
+
         // En Android tenemos que ejecutar las acciones sobre base de datos en hilos
-        Thread thread = new Thread(() -> {
+        /*Thread thread = new Thread(() -> {
             populate();
 
-           /* for(Person p: personService.getAll()){
+           for(Person p: personService.getAll()){
                 Log.i("Persona", p.toString());
             }
 
             for(Car c: carServices.getAll())
-                Log.i("Car", c.toString());*/
+                Log.i("Car", c.toString());
 
            for(PersonWithLicense p: personService.getPersonWithLicense()){
                 Log.i("Persona con licencia", p.toString());
             }
 
-            /* Map<Person, List<Car>> map = personService.getPersonWithCarMap();
+            Map<Person, List<Car>> map = personService.getPersonWithCarMap();
             for(Person p: map.keySet()){
                 Log.i("Persona con coches", p.toString() + " Coche " + map.get(p).toString());
-            }*/
+            }
 
 
-            for(PersonWithBooks p: personService.getPersonWithBooks()){
+            /*for(PersonWithBooks p: personService.getPersonWithBooks()){
                 Log.i("Persona con libros", p.toString());
             }
 
@@ -85,10 +105,60 @@ public class MainActivity extends AppCompatActivity {
             thread.join();//Esperar a que termine el hilo
         } catch (Exception e){
             Log.e("error hilo", e.getMessage());
-        }
+        }*/
 
 
+        Button btnRegister = findViewById(R.id.btnRegister);
+        btnRegister.setOnClickListener(v -> {
+            Intent intent = new Intent(this, RegisterActivity.class);
 
+            startActivity(intent);
+        });
+
+
+        btnLogin.setOnClickListener(v -> {
+            Thread thread2 = new Thread(() -> {
+
+                // Obtener la persona por nombre de usuario
+                Person p = personService.getPersonByUsername(etUsername.getText().toString());
+                Log.i("Persona", p.toString());
+
+                if(p == null){
+                    tvError.setText("Usuario no válido");
+                    tvError.setTextColor(Color.RED);
+                } else {
+
+                    // Una vez que ya tengo la persona comprobar la contraseña
+                    Boolean checkPassword = BCrypt.checkpw(etPassword.getText().toString(), p.getUserAccount().getPassword());
+                    if (checkPassword) { // Login correcto
+                        tvError.setText("Contraseña correcta - Rol:" + p.getUserAccount().getRol());
+                        tvError.setTextColor(Color.BLACK);
+
+                        // Actualizar las variables de sesión
+                        sharedPreferences = getSharedPreferences("MiAppPreferences", Context.MODE_PRIVATE);
+
+                        SharedPreferences.Editor editor =  sharedPreferences.edit();
+                        editor.putBoolean("login", true);
+                        editor.putString("username", p.getUserAccount().getUsername());
+                        editor.putLong("id", p.getId());
+                        editor.putString("rol", p.getUserAccount().getRol());
+
+                        editor.apply();
+
+                    } else {
+                        tvError.setText("Contraseña incorrecta");
+                        tvError.setTextColor(Color.RED);
+                    }
+                }
+            });
+
+            thread2.start();
+            try {
+                thread2.join();//Esperar a que termine el hilo
+            } catch (Exception e){
+                Log.e("error hilo", e.getMessage());
+            }
+        });
 
     }
 
